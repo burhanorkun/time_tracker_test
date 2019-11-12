@@ -40,7 +40,7 @@ class EmailSignInModel with EmailAndPasswordValidators {
     return showErrorText ? invalidPasswordErrorText : null;
   }
 
-  String get emailErrorText{
+  String get emailErrorText {
     bool showErrorText = submitted && !emailValidator.isValid(email);
     return showErrorText ? invalidEmailErrorText : null;
   }
@@ -58,5 +58,29 @@ class EmailSignInModel with EmailAndPasswordValidators {
       isLoading: isLoading ?? this.isLoading,
       submitted: submitted ?? this.submitted,
     );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EmailSignInModel &&
+          runtimeType == other.runtimeType &&
+          email == other.email &&
+          password == other.password &&
+          formType == other.formType &&
+          isLoading == other.isLoading &&
+          submitted == other.submitted;
+
+  @override
+  int get hashCode =>
+      email.hashCode ^
+      password.hashCode ^
+      formType.hashCode ^
+      isLoading.hashCode ^
+      submitted.hashCode;
+
+  @override
+  String toString() {
+    return 'EmailSignInModel{email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted}';
   }
 }
